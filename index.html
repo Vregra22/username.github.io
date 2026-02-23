@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KinoSayt | O'zbek kinolari</title>
+    
+    <!-- FONTS & ICONS -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- CSS STYLES -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6c5ce7;
+            --primary-dark: #5649c0;
+            --secondary: #a463f5;
+            --success: #00b894;
+            --danger: #ff7675;
+            --warning: #fdcb6e;
+            --dark: #2d3436;
+            --gray: #636e72;
+            --light: #f5f6fa;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 450px;
+            margin: 0 auto;
+        }
+
+        /* FORM BOX */
+        .form-box {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: slideUp 0.5s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-box h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--primary);
+            font-size: 28px;
+        }
+
+        .form-box h2 i {
+            margin-left: 10px;
+            color: var(--secondary);
+        }
+
+        /* INPUT GROUPS */
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--dark);
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .input-group label i {
+            margin-right: 8px;
+            color: var(--primary);
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.1);
+        }
+
+        /* PASSWORD WRAPPER */
+        .password-wrapper {
+            position: relative;
+        }
+
+        .password-wrapper input {
+            padding-right: 45px;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: var(--gray);
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+
+        .toggle-password:hover {
+            color: var(--primary);
+        }
+
+        /* PASSWORD STRENGTH */
+        .password-strength {
+            margin-top: 8px;
+            font-size: 12px;
+            padding: 8px 12px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .password-strength.weak {
+            display: block;
+            background: #ff7675;
+            color: white;
+        }
+
+        .password-strength.medium {
+            display: block;
+            background: #fdcb6e;
+            color: var(--dark);
+        }
+
+        .password-strength.strong {
+            display: block;
+            background: #00b894;
+            color: white;
+        }
+
+        /* PASSWORD MATCH */
+        .password-match {
+            margin-top: 8px;
+            font-size: 12px;
+            padding: 8px 12px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .password-match.match {
+            display: block;
+            background: #00b894;
+            color: white;
+        }
+
+        .password-match.not-match {
+            display: block;
+            background: #ff7675;
+            color: white;
+        }
+
+        /* BUTTONS */
+        .btn-login, .btn-register, .btn-watch {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn-login:hover, .btn-register:hover, .btn-watch:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(108, 92, 231, 0.3);
+        }
+
+        .btn-login i, .btn-register i, .btn-watch i {
+            margin-right: 10px;
+        }
+
+        /* SWITCH TEXT */
+        .switch-text {
+            text-align: center;
+            margin-top: 20px;
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        .switch-text a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .switch-text a:hover {
+            color: var(--secondary);
+            text-decoration: underline;
+        }
+
+        /* KINO SECTION */
+        .kino-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 20px;
+            animation: fadeIn 0.5s ease;
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .kino-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .kino-title {
+            color: var(--primary);
+            font-size: 28px;
+        }
+
+        .kino-title i {
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+
+        .btn-logout {
+            padding: 10px 25px;
+            background: var(--danger);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-logout:hover {
+            background: #ff5e5e;
+            transform: translateY(-2px);
+        }
+
+        .btn-logout i {
+            margin-right: 8px;
+        }
+
+        /* KINO GRID */
+        .kino-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .kino-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .kino-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(108, 92, 231, 0.2);
+        }
+
+        .kino-image {
+            position: relative;
+            overflow: hidden;
+            height: 300px;
+        }
+
+        .kino-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .kino-card:hover .kino-image img {
+            transform: scale(1.1);
+        }
+
+        .kino-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .kino-card:hover .kino-overlay {
+            opacity: 1;
+        }
+
+        .play-icon {
+            color: white;
+            font-size: 60px;
+            cursor: pointer;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .kino-info {
+            padding: 20px;
+        }
+
+        .kino-info h3 {
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+
+        .kino-year {
+            color: var(--gray);
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .kino-rating {
+            margin-bottom: 15px;
+        }
+
+        .kino-rating i {
+            color: #fdcb6e;
+            margin-right: 2px;
+        }
+
+        .kino-rating span {
+            margin-left: 8px;
+            color: var(--gray);
+            font-weight: 600;
+        }
+
+        .btn-watch {
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-watch:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
+        }
+
+        .btn-watch i {
+            margin-right: 8px;
+        }
+
+        /* VIDEO MODAL */
+        .video-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.9);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+
+        .video-container {
+            width: 90%;
+            max-width: 800px;
+            background: var(--dark);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .video-header {
+            padding: 15px 20px;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .video-header h3 i {
+            margin-right: 10px;
+        }
+
+        .close-video {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .close-video:hover {
+            transform: scale(1.1);
+        }
+
+        .video-player {
+            position: relative;
+            padding-top: 56.25%;
+        }
+
+        .video-player video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .kino-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .form-box {
+                padding: 30px 20px;
+            }
+            
+            .kino-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .kino-title {
+                font-size: 24px;
+            }
+            
+            .btn-logout {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- LOGIN FORM -->
+    <div class="container" id="loginContainer">
+        <div class="form-box">
+            <h2>Kirish <i class="fas fa-film"></i></h2>
+            
+            <div class="input-group">
+                <label for="loginUsername">
+                    <i class="fas fa-user"></i>
+                    Login:
+                </label>
+                <input type="text" id="loginUsername" placeholder="Loginingizni kiriting">
+            </div>
+
+            <div class="input-group">
+                <label for="loginPassword">
+                    <i class="fas fa-lock"></i>
+                    Parol:
+                </label>
+                <div class="password-wrapper">
+                    <input type="password" id="loginPassword" placeholder="••••••••">
+                    <i class="fas fa-eye toggle-password" onclick="togglePassword('loginPassword', this)"></i>
+                </div>
+            </div>
+
+            <button class="btn-login" onclick="login()">
+                <i class="fas fa-sign-in-alt"></i>
+                Kirish
+            </button>
+
+            <p class="switch-text">
+                Akkountingiz yo'qmi? 
+                <a href="#" onclick="showRegister()">Ro'yxatdan o'tish</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- REGISTRATION FORM -->
+    <div class="container" id="registerContainer" style="display: none;">
+        <div class="form-box">
+            <h2>Ro'yxatdan o'tish <i class="fas fa-user-plus"></i></h2>
+
+            <div class="input-group">
+                <label for="regIsm">
+                    <i class="fas fa-user"></i>
+                    Ism:
+                </label>
+                <input type="text" id="regIsm" placeholder="Ismingiz" required>
+            </div>
+
+            <div class="input-group">
+                <label for="regFamiliya">
+                    <i class="fas fa-user"></i>
+                    Familiya:
+                </label>
+                <input type="text" id="regFamiliya" placeholder="Familiyangiz" required>
+            </div>
+
+            <div class="input-group">
+                <label for="regLogin">
+                    <i class="fas fa-at"></i>
+                    Login:
+                </label>
+                <input type="text" id="regLogin" placeholder="Login tanlang" required>
+            </div>
+
+            <div class="input-group">
+                <label for="regPassword">
+                    <i class="fas fa-lock"></i>
+                    Parol:
+                </label>
+                <div class="password-wrapper">
+                    <input type="password" id="regPassword" placeholder="Parol" onkeyup="checkPasswordStrength()">
+                    <i class="fas fa-eye toggle-password" onclick="togglePassword('regPassword', this)"></i>
+                </div>
+                <div class="password-strength" id="passwordStrength"></div>
+            </div>
+
+            <div class="input-group">
+                <label for="regConfirmPassword">
+                    <i class="fas fa-lock"></i>
+                    Parol (takror):
+                </label>
+                <div class="password-wrapper">
+                    <input type="password" id="regConfirmPassword" placeholder="Parolni takrorlang" onkeyup="checkPasswordMatch()">
+                    <i class="fas fa-eye toggle-password" onclick="togglePassword('regConfirmPassword', this)"></i>
+                </div>
+                <div class="password-match" id="passwordMatch"></div>
+            </div>
+
+            <button class="btn-register" onclick="register()">
+                <i class="fas fa-user-plus"></i>
+                Ro'yxatdan o'tish
+            </button>
+
+            <p class="switch-text">
+                Akkountingiz bormi? 
+                <a href="#" onclick="showLogin()">Kirish</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- KINO SECTION -->
+    <div class="kino-section" id="kinoSection" style="display: none;">
+        <div class="container" style="max-width: 1200px;">
+            <div class="kino-header">
+                <h1 class="kino-title">
+                    <i class="fas fa-film"></i> 
+                    O'ZBEK KINOLARI
+                </h1>
+                <button class="btn-logout" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Chiqish
+                </button>
+            </div>
+
+            <div class="kino-grid">
+                <!-- KINO 1 -->
+                <div class="kino-card">
+                    <div class="kino-image">
+                        <img src="https://via.placeholder.com/300x400/6c5ce7/ffffff?text=O'ZBEK+KINO+1" alt="Kino 1">
+                        <div class="kino-overlay">
+                            <i class="fas fa-play-circle play-icon" onclick="playKino(1)"></i>
+                        </div>
+                    </div>
+                    <div class="kino-info">
+                        <h3>O'zbek kino 1</h3>
+                        <p class="kino-year">2024 | O'zbekiston</p>
+                        <div class="kino-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>4.5</span>
+                        </div>
+                        <button class="btn-watch" onclick="playKino(1)">
+                            <i class="fas fa-play"></i> Ko'rish
+                        </button>
+                    </div>
+                </div>
+
+                <!-- KINO 2 -->
+                <div class="kino-card">
+                    <div class="kino-image">
+                        <img src="https://via.placeholder.com/300x400/a463f5/ffffff?text=O'ZBEK+KINO+2" alt="Kino 2">
+                        <div class="kino-overlay">
+                            <i class="fas fa-play-circle play-icon" onclick="playKino(2)"></i>
+                        </div>
+                    </div>
+                    <div class="kino-info">
+                        <h3>O'zbek kino 2</h3>
+                        <p class="kino-year">2024 | O'zbekiston</p>
+                        <div class="kino-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>5.0</span>
+                        </div>
+                        <button class="btn-watch" onclick="playKino(2)">
+                            <i class="fas fa-play"></i> Ko'rish
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- VIDEO MODAL -->
+    <div class="video-modal" id="videoModal" onclick="closeVideo()">
+        <div class="video-container" onclick="event.stopPropagation()">
+            <div class="video-header">
+                <h3><i class="fas fa-film"></i> O'zbek kino</h3>
+                <button class="close-video" onclick="closeVideo()">×</button>
+            </div>
+            <div class="video-player">
+                <video id="kinoPlayer" controls>
+                    <source src="#" type="video/mp4">
+                    Sizning brauzeringiz video formatini qo'llab-quvvatlamaydi
+                </video>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Ma'lumotlar bazasi
+        let users = JSON.parse(localStorage.getItem('users')) || [
+            { ism: 'Test', familiya: 'User', login: 'admin', password: 'Admin123!' }
+        ];
+
+        // Parol kuchini tekshirish
+        function checkPasswordStrength() {
+            const password = document.getElementById('regPassword').value;
+            const strengthDiv = document.getElementById('passwordStrength');
+            
+            if (password.length === 0) {
+                strengthDiv.style.display = 'none';
+                return;
+            }
+            
+            if (password.length < 8) {
+                strengthDiv.style.display = 'block';
+                strengthDiv.className = 'password-strength weak';
+                strengthDiv.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Kuchsiz: 8 ta belgidan kam';
+                return;
+            }
+            
+            if (!/[0-9]/.test(password)) {
+                strengthDiv.style.display = 'block';
+                strengthDiv.className = 'password-strength weak';
+                strengthDiv.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Kuchsiz: Raqam qo\'shing';
+                return;
+            }
+            
+            if (!/[A-Z]/.test(password)) {
+                strengthDiv.style.display = 'block';
+                strengthDiv.className = 'password-strength weak';
+                strengthDiv.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Kuchsiz: Katta harf qo\'shing';
+                return;
+            }
+            
+            if (!/[a-z]/.test(password)) {
+                strengthDiv.style.display = 'block';
+                strengthDiv.className = 'password-strength weak';
+                strengthDiv.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Kuchsiz: Kichik harf qo\'shing';
+                return;
+            }
+            
+            if (!/[!@#$%^&*]/.test(password)) {
+                strengthDiv.style.display = 'block';
+                strengthDiv.className = 'password-strength weak';
+                strengthDiv.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Kuchsiz: Maxsus belgi qo\'shing (!@#$%^&*)';
+                return;
+            }
+            
+            if (password.length < 10) {
+                strengthDiv.style.display = 'block';
+                strengthDiv.className = 'password-strength medium';
+                strengthDiv.innerHTML = '<i class="fas fa-check-circle"></i> O\'rtacha';
+                return;
+            }
+            
+            strengthDiv.style.display = 'block';
+            strengthDiv.className = 'password-strength strong';
+            strengthDiv.innerHTML = '<i class="fas fa-check-circle"></i> Kuchli parol ✓';
+        }
+
+        // Parol mosligini tekshirish
+        function checkPasswordMatch() {
+            const password = document.getElementById('regPassword').value;
+            const confirm = document.getElementById('regConfirmPassword').value;
+            const matchDiv = document.getElementById('passwordMatch');
+            
+            if (confirm.length === 0) {
+                matchDiv.style.display = 'none';
+                return;
+            }
+            
+            matchDiv.style.display = 'block';
+            if (password === confirm) {
+                matchDiv.className = 'password-match match';
+                matchDiv.innerHTML = '<i class="fas fa-check-circle"></i> Parollar mos ✓';
+            } else {
+                matchDiv.className = 'password-match not-match';
+                matchDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> Parollar mos emas ✗';
+            }
+        }
+
+        // Parol ko'rsatish
+        function togglePassword(inputId, icon) {
+            const input = document.getElementById(inputId);
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.className = 'fas fa-eye-slash toggle-password';
+            } else {
+                input.type = 'password';
+                icon.className = 'fas fa-eye toggle-password';
+            }
+        }
+
+        // Ro'yxatdan o'tish
+        function register() {
+            const ism = document.getElementById('regIsm').value.trim();
+            const familiya = document.getElementById('regFamiliya').value.trim();
+            const login = document.getElementById('regLogin').value.trim();
+            const password = document.getElementById('regPassword').value;
+            const confirmPassword = document.getElementById('regConfirmPassword').value;
+            
+            if (!ism || !familiya || !login || !password || !confirmPassword) {
+                alert('❌ Barcha maydonlarni to\'ldiring!');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                alert('❌ Parollar mos kelmadi!');
+                return;
+            }
+            
+            if (users.find(u => u.login === login)) {
+                alert('❌ Bu login band!');
+                return;
+            }
+            
+            users.push({ ism, familiya, login, password });
+            localStorage.setItem('users', JSON.stringify(users));
+            
+            alert('✅ Ro\'yxatdan o\'tdingiz! Endi kiring.');
+            showLogin();
+        }
+
+        // Kirish
+        function login() {
+            const login = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            
+            if (!login || !password) {
+                alert('❌ Login va parolni kiriting!');
+                return;
+            }
+            
+            const user = users.find(u => u.login === login && u.password === password);
+            
+            if (user) {
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                document.getElementById('loginContainer').style.display = 'none';
+                document.getElementById('registerContainer').style.display = 'none';
+                document.getElementById('kinoSection').style.display = 'block';
+            } else {
+                alert('❌ Login yoki parol xato!');
+            }
+        }
+
+        // Chiqish
+        function logout() {
+            localStorage.removeItem('currentUser');
+            document.getElementById('loginContainer').style.display = 'block';
+            document.getElementById('registerContainer').style.display = 'none';
+            document.getElementById('kinoSection').style.display = 'none';
+            
+            document.getElementById('loginUsername').value = '';
+            document.getElementById('loginPassword').value = '';
+        }
+
+        // Login formini ko'rsatish
+        function showLogin() {
+            document.getElementById('loginContainer').style.display = 'block';
+            document.getElementById('registerContainer').style.display = 'none';
+            document.getElementById('kinoSection').style.display = 'none';
+        }
+
+        // Register formini ko'rsatish
+        function showRegister() {
+            document.getElementById('loginContainer').style.display = 'none';
+            document.getElementById('registerContainer').style.display = 'block';
+            document.getElementById('kinoSection').style.display = 'none';
+            
+            document.getElementById('regIsm').value = '';
+            document.getElementById('regFamiliya').value = '';
+            document.getElementById('regLogin').value = '';
+            document.getElementById('regPassword').value = '';
+            document.getElementById('regConfirmPassword').value = '';
+            document.getElementById('passwordStrength').style.display = 'none';
+            document.getElementById('passwordMatch').style.display = 'none';
+        }
+
+        // Kino o'ynatish
+        function playKino(kinoId) {
+            const modal = document.getElementById('videoModal');
+            const video = document.getElementById('kinoPlayer');
+            
+            modal.style.display = 'flex';
+            
+            // TEST VIDEO LINKLARI (o'zingizning kinolaringizni qo'ying)
+            const kinolar = {
+                1: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+                2: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4'
+            };
+            
+            video.src = kinolar[kinoId];
+            video.play();
+        }
+
+        // Videoni yopish
+        function closeVideo() {
+            const modal = document.getElementById('videoModal');
+            const video = document.getElementById('kinoPlayer');
+            
+            video.pause();
+            video.src = '';
+            modal.style.display = 'none';
+        }
+
+        // Sahifa yuklanganda
+        window.onload = function() {
+            if (localStorage.getItem('currentUser')) {
+                document.getElementById('loginContainer').style.display = 'none';
+                document.getElementById('registerContainer').style.display = 'none';
+                document.getElementById('kinoSection').style.display = 'block';
+            } else {
+                document.getElementById('loginContainer').style.display = 'block';
+                document.getElementById('registerContainer').style.display = 'none';
+                document.getElementById('kinoSection').style.display = 'none';
+            }
+        };
+    </script>
+</body>
+</html>
